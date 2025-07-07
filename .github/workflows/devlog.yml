@@ -1,0 +1,30 @@
+name: Generate Devlog
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 자정(UTC) 실행
+  workflow_dispatch:     # 수동 실행 허용
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Generate devlog
+        run: node generate-devlog.js
+
+      - name: Commit and push devlog
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "actions@github.com"
+          git add devlog.md
+          git commit -m "chore: 자동 생성된 개발 일지 업데이트" || echo "No changes to commit"
+          git push
