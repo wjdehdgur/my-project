@@ -2,7 +2,7 @@ name: Generate Devlog
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 매일 자정 (UTC)
+    - cron: '0 0 * * *'  # 매일 자정(UTC)
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false  # 기본 인증 비활성화하여 PAT 인증 사용 준비
+          persist-credentials: false  # 기본 인증 비활성화
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
